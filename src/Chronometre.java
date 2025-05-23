@@ -22,6 +22,7 @@ public class Chronometre extends Text{
     /**
      * le contrôleur associé au chronomètre
      */
+
     private ControleurChronometre actionTemps;
 
     /**
@@ -30,8 +31,23 @@ public class Chronometre extends Text{
      * Ce constructeur créer la Timeline, la KeyFrame et le contrôleur
      */
     public Chronometre(){
-        // A implémenter
+    super("0:0:0"); // texte initial
+    this.setFont(Font.font("Arial", 20));
+    this.setTextAlignment(TextAlignment.CENTER);
+
+    // Création du contrôleur
+    this.actionTemps = new ControleurChronometre(this);
+
+    // Création de la KeyFrame (appel du contrôleur toutes les 50ms)
+    this.keyFrame = new KeyFrame(Duration.millis(50), this.actionTemps);
+
+    // Création de la Timeline avec cette KeyFrame
+    this.timeline = new Timeline(this.keyFrame);
+    this.timeline.setCycleCount(Animation.INDEFINITE); // répéter indéfiniment
     }
+
+        
+
 
     /**
      * Permet au controleur de mettre à jour le text
@@ -39,27 +55,35 @@ public class Chronometre extends Text{
      * @param tempsMillisec la durée depuis à afficher
      */
     public void setTime(long tempsMillisec){
-        // A implémenter
+        long minutes = (tempsMillisec / 1000) / 60;
+        long secondes = (tempsMillisec / 1000) % 60;
+        long millisecondes = tempsMillisec % 1000;
+        this.setText(minutes + ":" + secondes + ":" + millisecondes);
+        this.setFont(Font.font("Arial", 20));
+        this.setTextAlignment(TextAlignment.CENTER);
     }
 
     /**
      * Permet de démarrer le chronomètre
      */
     public void start(){
-        // A implémenter
+        this.timeline.play();
     }
 
     /**
      * Permet d'arrêter le chronomètre
      */
     public void stop(){
-        // A implémenter
+        this.timeline.stop();
     }
 
     /**
      * Permet de remettre le chronomètre à 0
      */
     public void resetTime(){
-        // A implémenter
+        this.timeline.stop();
+        this.actionTemps.reset();
     }
+
+    
 }

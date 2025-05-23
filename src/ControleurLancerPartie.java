@@ -21,7 +21,8 @@ public class ControleurLancerPartie implements EventHandler<ActionEvent> {
      * @param p vue du jeu
      */
     public ControleurLancerPartie(MotMystere modelePendu, Pendu vuePendu) {
-        // A implémenter
+        this.modelePendu = modelePendu;
+        this.vuePendu = vuePendu;
     }
 
     /**
@@ -30,15 +31,18 @@ public class ControleurLancerPartie implements EventHandler<ActionEvent> {
      */
     @Override
     public void handle(ActionEvent actionEvent) {
-        // A implémenter
-    
-        Optional<ButtonType> reponse = this.vuePendu.popUpPartieEnCours().showAndWait(); // on lance la fenêtre popup et on attends la réponse
-        // si la réponse est oui
+    String motCrypte = this.modelePendu.getMotCrypte();
+    // On considère qu'une partie est en cours si le mot crypté contient des * ET qu'il y a eu au moins une erreur
+    boolean partieEnCours = motCrypte.contains("*") && this.modelePendu.getNbEssais() > 0;
+    if (!partieEnCours) {
+        this.vuePendu.lancePartie();
+        this.vuePendu.majAffichage();
+    } else {
+        Optional<ButtonType> reponse = this.vuePendu.popUpPartieEnCours().showAndWait();
         if (reponse.isPresent() && reponse.get().equals(ButtonType.YES)){
-            System.out.println("Ok !");
+            this.vuePendu.lancePartie();
+            this.vuePendu.majAffichage();
         }
-        else{
-            System.out.println("D'ac !");
-        }
+    }
     }
 }

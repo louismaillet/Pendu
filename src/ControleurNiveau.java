@@ -20,13 +20,14 @@ public class ControleurNiveau implements EventHandler<ActionEvent> {
         this.modelePendu = modelePendu;
     }
 
+    
     /**
      * gère le changement de niveau
      * @param actionEvent
      */
     @Override
     public void handle(ActionEvent actionEvent) {
-        // A implémenter
+        
         RadioButton radiobouton = (RadioButton) actionEvent.getTarget();
         String nomDuRadiobouton = radiobouton.getText();
         System.out.println(nomDuRadiobouton);
