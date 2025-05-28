@@ -2,40 +2,39 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
 /**
- * Contrôleur du chronomètre
+ * Contrôleur du chronomètre.
  */
 public class ControleurChronometre implements EventHandler<ActionEvent> {
+
     /**
-     * temps enregistré lors du dernier événement
+     * Temps enregistré lors du dernier événement.
      */
     private long tempsPrec;
+
     /**
-     * temps écoulé depuis le début de la mesure
+     * Temps écoulé depuis le début de la mesure.
      */
     private long tempsEcoule;
+
     /**
-     * Vue du chronomètre
+     * Référence au chronomètre à mettre à jour.
      */
     private Chronometre chrono;
 
     /**
-     * Constructeur du contrôleur du chronomètre
-     * noter que le modèle du chronomètre est tellement simple
-     * qu'il est inclus dans le contrôleur
+     * Constructeur du contrôleur du chronomètre.
+     * Le modèle du chronomètre est intégré ici.
      * @param chrono Vue du chronomètre
      */
-    public ControleurChronometre (Chronometre chrono){
+    public ControleurChronometre(Chronometre chrono) {
         this.chrono = chrono;
-        this.tempsPrec = System.currentTimeMillis(); // initialisation du temps de départ
+        this.tempsPrec = System.currentTimeMillis();
         this.tempsEcoule = 0;
-
     }
 
     /**
-     * Actions à effectuer tous les pas de temps
-     * essentiellement mesurer le temps écoulé depuis la dernière mesure
-     * et mise à jour de la durée totale
-     * @param actionEvent événement Action
+     * Appelé toutes les 50 ms par la KeyFrame.
+     * Calcule le temps écoulé et met à jour l'affichage.
      */
     @Override
     public void handle(ActionEvent actionEvent) {
@@ -47,9 +46,9 @@ public class ControleurChronometre implements EventHandler<ActionEvent> {
     }
 
     /**
-     * Remet la durée à 0
+     * Remet la durée écoulée à 0.
      */
-    public void reset(){
+    public void reset() {
         this.tempsEcoule = 0;
         this.tempsPrec = System.currentTimeMillis();
         chrono.setTime(0);

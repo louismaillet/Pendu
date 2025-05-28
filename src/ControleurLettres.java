@@ -32,26 +32,14 @@ public class ControleurLettres implements EventHandler<ActionEvent> {
      * @param actionEvent l'événement
      */
     @Override
-public void handle(ActionEvent actionEvent) {
-    // Récupère la lettre cliquée
-    Button bouton = (Button) actionEvent.getSource();
-    String lettre = bouton.getText();
-
-    // Essaye la lettre dans le modèle (char attendu)
-    modelePendu.essaiLettre(lettre.charAt(0));
-
-    // Met à jour l'affichage
-    vuePendu.majAffichage();
-
-    // Vérifie si la partie est gagnée ou perdue
-    if (modelePendu.gagne()) {
-        vuePendu.popUpMessageGagne().showAndWait();
-        vuePendu.modeAccueil();
-    } else if (modelePendu.perdu()) {
-        vuePendu.popUpMessagePerdu().showAndWait();
-        vuePendu.modeAccueil();
+    public void handle(ActionEvent actionEvent) {
+        Button button = (Button) (actionEvent.getSource());
+        button.setDisable(true);
+        String lettre = button.getText();
+        modelePendu.essaiLettre(lettre.charAt(0));
+        vuePendu.majAffichage();
     }
 }
-    }
+
     
 
