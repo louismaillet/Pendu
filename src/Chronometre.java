@@ -31,17 +31,11 @@ public class Chronometre extends Text {
      * avec un label initialisé à "0:0:0".
      */
     public Chronometre() {
-        super("0:0:0"); // texte initial
+        super("0:0:0");
         this.setFont(Font.font("Arial", 20));
         this.setTextAlignment(TextAlignment.CENTER);
-
-        // Création du contrôleur
         this.actionTemps = new ControleurChronometre(this);
-
-        // Création de la KeyFrame (appel du contrôleur toutes les 50 ms)
         this.keyFrame = new KeyFrame(Duration.millis(50), this.actionTemps);
-
-        // Création de la Timeline avec cette KeyFrame
         this.timeline = new Timeline(this.keyFrame);
         this.timeline.setCycleCount(Animation.INDEFINITE); // répétition infinie
     }

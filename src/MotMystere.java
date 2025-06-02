@@ -2,22 +2,22 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Modèle pour le jeu du pendu.
+ * ModÃ¨le pour le jeu du pendu.
  */
 public class MotMystere {
-    // constantes pour gérer les différents niveaux de jeu
-    /** Niveau FACILE : la première lettre et la dernière lettre du mot à trouver sont données ainsi que les éventuels caractères non alphabétiques (traits d'union par exemple)*/
+    // constantes pour gÃ©rer les diffÃ©rents niveaux de jeu
+    /** Niveau FACILE : la premiÃ¨re lettre et la derniÃ¨re lettre du mot Ã  trouver sont donnÃ©es ainsi que les Ã©ventuels caractÃ¨res non alphabÃ©tiques (traits d'union par exemple)*/
     public final static int FACILE = 0;
-    /** Niveau MOYEN : la première lettre du mot à trouver est donnée ainsi que les traits d'union si le mot à trouver en comporte */
+    /** Niveau MOYEN : la premiÃ¨re lettre du mot Ã  trouver est donnÃ©e ainsi que les traits d'union si le mot Ã  trouver en comporte */
     public final static int MOYEN = 1;
-    /** Niveau DIFFICILE : seuls les traits d'union si le mot à trouver en comporte */
+    /** Niveau DIFFICILE : seuls les traits d'union si le mot Ã  trouver en comporte */
     public final static int DIFFICILE = 2;
-    /** Niveau EXPERT : rien n'est donné, ni lettre ni trait d'union */
+    /** Niveau EXPERT : rien n'est donnÃ©, ni lettre ni trait d'union */
     public final static int EXPERT = 3;
    
 
     /**
-     * le mot à trouver
+     * le mot Ã  trouver
      */
     private String motATrouver;
     /**
@@ -25,19 +25,19 @@ public class MotMystere {
      */
     private int niveau;
     /**
-     * chaine contenant les lettres déjà trouvées et des * à la place des lettres non encore trouvées
+     * chaine contenant les lettres dÃ©jÃ  trouvÃ©es et des * Ã  la place des lettres non encore trouvÃ©es
      */
     private String motCrypte;
     /**
-     * chaine contenant l'ensemble des lettres déjà essayées
+     * chaine contenant l'ensemble des lettres dÃ©jÃ  essayÃ©es
      */
     private Set<String> lettresEssayees;
     /**
-     * entier inquant le nombre de lettres restant à trouver
+     * entier inquant le nombre de lettres restant Ã  trouver
      */
     private int nbLettresRestantes;
     /**
-     * le nombre d'essais déjà effectués
+     * le nombre d'essais dÃ©jÃ  effectuÃ©s
      */
     private int nbEssais;
     /**
@@ -45,7 +45,7 @@ public class MotMystere {
      */
     private int nbErreursRestantes;
     /**
-     * le nombre total de tentatives autorisées
+     * le nombre total de tentatives autorisÃ©es
      */
     private int nbEerreursMax;
     /**
@@ -55,10 +55,10 @@ public class MotMystere {
 
 
     /**
-     * constructeur dans lequel on impose le mot à trouver
-     * @param motATrouve mot à trouver
+     * constructeur dans lequel on impose le mot Ã  trouver
+     * @param motATrouve mot Ã  trouver
      * @param niveau niveau du jeu
-     * @param nbErreursMax le nombre total d'essais autorisés
+     * @param nbErreursMax le nombre total d'essais autorisÃ©s
      */
     public MotMystere(String motATrouver, int niveau, int nbErreursMax) {
         super();
@@ -66,13 +66,13 @@ public class MotMystere {
     }
 
     /**
-     * Constructeur dans lequel on va initialiser un dictionnaire pour choisir les mots à trouver
-     * @param nomFichier est le chemin vers le dictionnaire utilisé qui est un fichier texte
+     * Constructeur dans lequel on va initialiser un dictionnaire pour choisir les mots Ã  trouver
+     * @param nomFichier est le chemin vers le dictionnaire utilisÃ© qui est un fichier texte
      *  contenant une liste de mots (un mot par ligne)
      * @param longMin longueur minimale des mots retenus dans le dictionnaire
      * @param longMax longueur maximale des mots retenus dans le dictionnaire
      * @param niveau niveau initial de jeu
-     * @param nbErreursMax le nombre total d'essais autorisés
+     * @param nbErreursMax le nombre total d'essais autorisÃ©s
      */
     public MotMystere(String nomFichier, int longMin, int longMax, int niveau, int nbErreursMax) {
         super();
@@ -83,9 +83,9 @@ public class MotMystere {
 
     /**
      * initialisation du jeu
-     * @param motATrouver le mot à trouver
+     * @param motATrouver le mot Ã  trouver
      * @param niveau le niveau de jeu
-     * @param nbErreursMax  le nombre total d'essais autorisés
+     * @param nbErreursMax  le nombre total d'essais autorisÃ©s
      */
     private void initMotMystere(String motATrouver, int niveau, int nbErreursMax){
         this.niveau =niveau;
@@ -97,38 +97,38 @@ public class MotMystere {
         nbLettresRestantes=0;
         
         if (niveau == MotMystere.EXPERT || niveau == MotMystere.DIFFICILE){
-            motCrypte = "*"; // premiere lettre cachée
+            motCrypte = "*"; // premiere lettre cachÃ©e
             this.nbLettresRestantes+=1;
         }
         else{
-            motCrypte += this.motATrouver.charAt(0); // premiere lettre révélée
+            motCrypte += this.motATrouver.charAt(0); // premiere lettre rÃ©vÃ©lÃ©e
         }
         
         for (int i=1; i<motATrouver.length()-1; i++){
             char lettre = this.motATrouver.charAt(i);
             if (this.niveau == MotMystere.EXPERT || Character.isAlphabetic(lettre)){
-                motCrypte += "*"; // lettre cachée
+                motCrypte += "*"; // lettre cachÃ©e
                 this.nbLettresRestantes += 1;
             }   
             else{
-                motCrypte += lettre; // lettre révélée si c'est un trait d'union ET qu'on n'est pas en mode Expert
+                motCrypte += lettre; // lettre rÃ©vÃ©lÃ©e si c'est un trait d'union ET qu'on n'est pas en mode Expert
             }
         }
         
-        if (niveau != MotMystere.FACILE){ // dernière lettre révélée
+        if (niveau != MotMystere.FACILE){ // derniÃ¨re lettre rÃ©vÃ©lÃ©e
             motCrypte += "*";
             this.nbLettresRestantes += 1;
         }
         else{
             motCrypte += this.motATrouver.charAt(motATrouver.length()-1);
-            // dernière lettre cachée
+            // derniÃ¨re lettre cachÃ©e
         }
         this.nbEerreursMax = nbErreursMax;
          this.nbErreursRestantes = nbErreursMax;
     }
 
     /**
-     * @return le mot à trouver
+     * @return le mot Ã  trouver
      */
     public String getMotATrouve() {
         return this.motATrouver;
@@ -141,15 +141,15 @@ public class MotMystere {
         return this.niveau;
     }
 
-    /** réinitialise le jeu avec un nouveau à trouver
-     * @param motATrouver le nouveau mot à trouver
+    /** rÃ©initialise le jeu avec un nouveau Ã  trouver
+     * @param motATrouver le nouveau mot Ã  trouver
      */
     public void setMotATrouver(String motATrouver) {
         this.initMotMystere(motATrouver, this.niveau, this.nbEerreursMax);
     }
 
     /**
-     * Réinitialise le jeu avec un nouveau mot à trouver choisi au hasard dans le dictionnaire
+     * RÃ©initialise le jeu avec un nouveau mot Ã  trouver choisi au hasard dans le dictionnaire
      */
     public void setMotATrouver() {
         this.initMotMystere(this.dict.choisirMot(), this.niveau, this.nbEerreursMax);
@@ -164,56 +164,56 @@ public class MotMystere {
     }
 
     /**
-     * @return le mot avec les lettres trouvées affichées et des étoiles pour les lettres non trouvées
+     * @return le mot avec les lettres trouvÃ©es affichÃ©es et des Ã©toiles pour les lettres non trouvÃ©es
      */
     public String getMotCrypte() {
         return this.motCrypte;
     }
 
     /**
-     * @return les lettres déjà essayées
+     * @return les lettres dÃ©jÃ  essayÃ©es
      */
     public Set<String> getLettresEssayees() {
         return this.lettresEssayees;
     }
 
     /**
-     * @return le nombre de lettres restant à trouver
+     * @return le nombre de lettres restant Ã  trouver
      */
     public int getNbLettresRestantes() {
         return this.nbLettresRestantes;
     }
 
     /**
-     * @return le nombre d'essais déjà effectués
+     * @return le nombre d'essais dÃ©jÃ  effectuÃ©s
      */
     public int getNbEssais(){
         return this.nbEssais;
     }
 
     /**
-     * @return le nombre total de tentatives autorisées
+     * @return le nombre total de tentatives autorisÃ©es
      */
     public int getNbErreursMax(){
         return this.nbEerreursMax;
     }
 
     /**
-     * @return le nombre d'erreurs encore autorisées
+     * @return le nombre d'erreurs encore autorisÃ©es
      */
     public int getNbErreursRestants(){
         return this.nbErreursRestantes;
     }
 
     /**
-     * @return un booléen indiquant si le joueur a perdu
+     * @return un boolÃ©en indiquant si le joueur a perdu
      */
     public boolean perdu(){
         return this.nbErreursRestantes == 0;
     }
 
     /**
-     * @return un booléen indiquant si le joueur a gangé
+     * @return un boolÃ©en indiquant si le joueur a gangÃ©
      */
     public boolean gagne(){
         return this.nbLettresRestantes == 0;
@@ -221,8 +221,8 @@ public class MotMystere {
 
     /**
      * permet au joueur d'essayer une lettre
-     * @param lettre la lettre essayée par le joueur
-     * @return le nombre de fois où la lettre apparait dans le mot à trouver
+     * @param lettre la lettre essayÃ©e par le joueur
+     * @return le nombre de fois oÃ¹ la lettre apparait dans le mot Ã  trouver
      */
     public int essaiLettre(char lettre){
         int nbNouvelles = 0;
@@ -238,7 +238,7 @@ public class MotMystere {
         this.lettresEssayees.add(lettre+"");
         // Le nombre d'essais augmente de 1
         this.nbEssais += 1;
-        // Si aucune lettre n'a été trouvée, le nombre d'erreurs restante diminue de 1
+        // Si aucune lettre n'a Ã©tÃ© trouvÃ©e, le nombre d'erreurs restante diminue de 1
         if (nbNouvelles == 0){
             this.nbErreursRestantes-=1;
         }
@@ -246,7 +246,7 @@ public class MotMystere {
     }
 
     /**
-     * @return une chaine de caractère donnant l'état du jeu
+     * @return une chaine de caractÃ¨re donnant l'Ã©tat du jeu
      */
     public String toString(){
         return "Mot a trouve: "+this.motATrouver+" Lettres trouvees: "+

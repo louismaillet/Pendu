@@ -32,7 +32,6 @@ public class ControleurLancerPartie implements EventHandler<ActionEvent> {
     @Override
     public void handle(ActionEvent actionEvent) {
     String motCrypte = this.modelePendu.getMotCrypte();
-    // On considère qu'une partie est en cours si le mot crypté contient des * ET qu'il y a eu au moins une erreur
     boolean partieEnCours = motCrypte.contains("*") && this.modelePendu.getNbEssais() > 0;
     if (!partieEnCours) {
         this.vuePendu.lancePartie();

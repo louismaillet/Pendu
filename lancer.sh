@@ -1,2 +1,2 @@
-javac -d bin --module-path /usr/share/openjfx/lib/ --add-modules javafx.controls src/*.java
-java -cp bin:img --module-path /usr/share/openjfx/lib/ --add-modules javafx.controls Pendu
+javac -d bin --module-path lib --add-modules javafx.controls src/*.java
+java -cp bin:img --module-path lib --add-modules javafx.controls Pendu

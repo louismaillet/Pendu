@@ -19,6 +19,9 @@ import java.io.File;
  * Vue du jeu du pendu
  */
 public class Pendu extends Application {
+
+    private String langue;
+
     /**
      * modèle du jeu
      **/
@@ -77,17 +80,17 @@ public class Pendu extends Application {
     /**
      * initialise les attributs (créer le modèle, charge les images, crée le chrono ...)
      */
-    private Button boutonInfo;
 
-    private boolean themeSombre = false; // false = clair, true = sombre
+     private Button boutonInfo;
     
 
     @Override
     public void init() {
+        this.langue = "french"; 
         this.boutonInfo = new Button();
         this.boutonParametres = new Button();
         this.boutonMaison = new Button();
-        this.modelePendu = new MotMystere("/usr/share/dict/french", 3, 10, MotMystere.FACILE, 10);
+        this.modelePendu = new MotMystere("dico/french", 3, 10, MotMystere.FACILE, 10);        
         this.chrono = new Chronometre();
         this.motCrypte = new Text(this.modelePendu.getMotCrypte());
         this.lesImages = new ArrayList<Image>();
@@ -262,16 +265,9 @@ public class Pendu extends Application {
         this.panelCentral.setCenter(this.fenetreJeu());
         this.panelCentral.setRight(this.fenetreJeuxDroit());
     }
-    
-    /* 
-    public void modeParametres(){
-        
-
-    }*/
 
     /** lance une partie */
     public void lancePartie(){
-        // Utilise la méthode initMotMystere pour initialiser le modèle
     int niveau;
     switch (this.modelePendu.getNiveau()) {
         case 0:
@@ -293,7 +289,7 @@ public class Pendu extends Application {
         default:
             niveau = MotMystere.FACILE;
     }
-    this.modelePendu = new MotMystere("/usr/share/dict/french", 3, 10, niveau, 10);
+    this.modelePendu = new MotMystere("dico/"+this.langue, 3, 10, niveau, 10);
     this.motCrypte = new Text(this.modelePendu.getMotCrypte());
     
     this.modeJeu();
@@ -404,7 +400,7 @@ public class Pendu extends Application {
     private HBox fenetreParametres() {
         Label labelLangue = new Label("Choisir la langue :");
         ComboBox<String> comboLangue = new ComboBox<>();
-        comboLangue.getItems().addAll("Français", "English", "Español", "Deutsch");
+        comboLangue.getItems().addAll("Français", "English", "Español");
         labelLangue.setPadding(new Insets(10));
         HBox langueBox = new HBox(labelLangue, comboLangue);
         langueBox.setAlignment(Pos.CENTER);
@@ -435,15 +431,13 @@ public class Pendu extends Application {
         case "Español":
             fichier = "spanish";
             break;
-        case "Deutsch":
-            fichier = "german";
-            break;
         default:
             fichier = "french";
     }
-    String chemin = "/usr/share/dict/" + fichier;
+    this.langue = fichier;
+    String chemin = "dico/" + fichier;
     this.modelePendu = new MotMystere(chemin, 3, 10, MotMystere.FACILE, 10);
-    this.modeJeu();
+    this.lancePartie();
     System.out.println("Langue sélectionnée : " + langue + " (" + chemin + ")");
 }
     
