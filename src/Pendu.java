@@ -258,6 +258,8 @@ public class Pendu extends Application {
 
     public void modeAccueil(){
         this.panelCentral.setCenter(this.fenetreAccueil());
+        this.boutonMaison.setDisable(true);
+        this.panelCentral.setDisable(false);
         this.panelCentral.setRight(null);
         this.panelCentral.setTop(null);
         this.chrono.resetTime();
@@ -266,6 +268,8 @@ public class Pendu extends Application {
     public void modeJeu(){
         this.panelCentral.setCenter(this.fenetreJeu());
         this.panelCentral.setRight(this.fenetreJeuxDroit());
+        this.boutonMaison.setDisable(false);
+        this.boutonParametres.setDisable(true);
     }
 
     /** lance une partie */
@@ -399,10 +403,6 @@ public class Pendu extends Application {
         this.panelCentral.setTop(null);
     }
 
-    // Supprime cet import :
-/* import java.awt.Label; */
-
-// ...le reste de tes imports...
 
     private HBox fenetreParametres() {
         HBox para = new HBox();
@@ -416,45 +416,14 @@ public class Pendu extends Application {
         HBox langueBox = new HBox(10, labelLangue, comboLangue);
         langueBox.setAlignment(Pos.CENTER);
 
-        VBox modeFun = new VBox(10);
-        modeFun.setAlignment(Pos.CENTER);
-        modeFun.getChildren().add(new Label("Mode Fun :"));
-        ToggleGroup modeFunGroup = new ToggleGroup();
-        RadioButton modeFunOui = new RadioButton("Oui");
-        modeFunOui.setToggleGroup(modeFunGroup);
-        RadioButton modeFunNon = new RadioButton("Non");
-        modeFunNon.setToggleGroup(modeFunGroup);
-        modeFun.getChildren().addAll(modeFunOui, modeFunNon);
-
-        para.getChildren().addAll(langueBox, modeFun);
+        para.getChildren().addAll(langueBox);
 
         comboLangue.setOnAction(new ControleurLangue(this, comboLangue));
-        modeFunOui.setOnAction(new ControleurFun(this, true));
-        modeFunNon.setOnAction(new ControleurFun(this, false));
+        
         return para;
     }
 
 
-    public void modeFun(boolean modeFun) {
-        String rec = this.chrono.getTempsSeconde();
-        int i = 0;
-        if (modeFun) {
-            while (true) {
-                i++;
-                if (this.chrono.getTempsSeconde() != rec) {
-                    this.chrono.getTempsSeconde();
-                    this.chrono.start();
-
-                    this.panelCentral.setStyle("-fx-background-color: "+this.couleur.get(i)+";");
-                    
-                }
-                else {break;};
-            }
-
-        } else {
-            this.panelCentral.setStyle(""); // réinitialise le style
-        }
-    }
 
 
     public void changeLangue(String langue) {
