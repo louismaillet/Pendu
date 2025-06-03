@@ -3,13 +3,13 @@
         "src"
     ],
     "java.project.referencedLibraries": [
-        "/usr/share/openjfx/lib/javafx.graphics.jar",
-        "/usr/share/openjfx/lib/javafx.media.jar",
-        "/usr/share/openjfx/lib/javafx.fxml.jar",
-        "/usr/share/openjfx/lib/javafx.swing.jar",
-        "/usr/share/openjfx/lib/javafx.web.jar",
-        "/usr/share/openjfx/lib/javafx.controls.jar",
-        "/usr/share/openjfx/lib/javafx.base.jar"
+        "lib/javafx.graphics.jar",
+        "lib/javafx.media.jar",
+        "lib/javafx.fxml.jar",
+        "lib/javafx.swing.jar",
+        "lib/javafx.web.jar",
+        "lib/javafx.controls.jar",
+        "lib/javafx.base.jar"
     ],
     "java.project.outputPath": "bin",
     "java.debug.settings.onBuildFailureProceed": true
