@@ -79,4 +79,13 @@ public class Chronometre extends Text {
         return this.getText();
     }
 
+    public String getTempsSeconde()
+    {
+        String[] parts = this.getText().split(":");
+        if (parts.length == 3) {
+            return parts[0] + ":" + parts[1];
+        }
+        return "0:0"; 
+
+}
 }

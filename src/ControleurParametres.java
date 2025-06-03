@@ -10,8 +10,7 @@ public class ControleurParametres implements EventHandler<ActionEvent> {
 
     @Override
     public void handle(ActionEvent event) {
-        vue.modeParametres();
-        
+        vue.modeParametres();        
 
     }
 }

@@ -82,10 +82,12 @@ public class Pendu extends Application {
      */
 
      private Button boutonInfo;
+    private List<String> couleur;
     
 
     @Override
     public void init() {
+        this.couleur = new ArrayList<>(List.of("FFFFFF", "FF0000", "00FF00", "0000FF")); // exemple de couleurs
         this.langue = "french"; 
         this.boutonInfo = new Button();
         this.boutonParametres = new Button();
@@ -397,28 +399,64 @@ public class Pendu extends Application {
         this.panelCentral.setTop(null);
     }
 
+    // Supprime cet import :
+/* import java.awt.Label; */
+
+// ...le reste de tes imports...
+
     private HBox fenetreParametres() {
+        HBox para = new HBox();
+        para.setAlignment(Pos.CENTER);
+        para.setSpacing(40);
+
         Label labelLangue = new Label("Choisir la langue :");
         ComboBox<String> comboLangue = new ComboBox<>();
         comboLangue.getItems().addAll("Français", "English", "Español");
-        labelLangue.setPadding(new Insets(10));
-        HBox langueBox = new HBox(labelLangue, comboLangue);
+
+        HBox langueBox = new HBox(10, labelLangue, comboLangue);
         langueBox.setAlignment(Pos.CENTER);
 
-        // Ajoute le contrôleur
-        comboLangue.setOnAction(new ControleurLangue(this, comboLangue));
+        VBox modeFun = new VBox(10);
+        modeFun.setAlignment(Pos.CENTER);
+        modeFun.getChildren().add(new Label("Mode Fun :"));
+        ToggleGroup modeFunGroup = new ToggleGroup();
+        RadioButton modeFunOui = new RadioButton("Oui");
+        modeFunOui.setToggleGroup(modeFunGroup);
+        RadioButton modeFunNon = new RadioButton("Non");
+        modeFunNon.setToggleGroup(modeFunGroup);
+        modeFun.getChildren().addAll(modeFunOui, modeFunNon);
 
-        return langueBox;
+        para.getChildren().addAll(langueBox, modeFun);
+
+        comboLangue.setOnAction(new ControleurLangue(this, comboLangue));
+        modeFunOui.setOnAction(new ControleurFun(this, true));
+        modeFunNon.setOnAction(new ControleurFun(this, false));
+        return para;
     }
 
-    /**
-     * Programme principal
-     * @param args inutilisé
-     */
-    public static void main(String[] args) {
-        launch(args);
-    }    
-    
+
+    public void modeFun(boolean modeFun) {
+        String rec = this.chrono.getTempsSeconde();
+        int i = 0;
+        if (modeFun) {
+            while (true) {
+                i++;
+                if (this.chrono.getTempsSeconde() != rec) {
+                    this.chrono.getTempsSeconde();
+                    this.chrono.start();
+
+                    this.panelCentral.setStyle("-fx-background-color: "+this.couleur.get(i)+";");
+                    
+                }
+                else {break;};
+            }
+
+        } else {
+            this.panelCentral.setStyle(""); // réinitialise le style
+        }
+    }
+
+
     public void changeLangue(String langue) {
     String fichier;
     switch (langue) {
@@ -439,6 +477,16 @@ public class Pendu extends Application {
     this.modelePendu = new MotMystere(chemin, 3, 10, MotMystere.FACILE, 10);
     this.lancePartie();
     System.out.println("Langue sélectionnée : " + langue + " (" + chemin + ")");
+    System.out.println(this.modelePendu.getMotATrouve());
 }
+
+    /**
+     * Programme principal
+     * @param args inutilisé
+     */
+    public static void main(String[] args) {
+        launch(args);
+    }    
+    
     
 }

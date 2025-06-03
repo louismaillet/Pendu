@@ -33,7 +33,7 @@ public class ControleurLancerPartie implements EventHandler<ActionEvent> {
     public void handle(ActionEvent actionEvent) {
     String motCrypte = this.modelePendu.getMotCrypte();
     boolean partieEnCours = motCrypte.contains("*") && this.modelePendu.getNbEssais() > 0;
-    if (!partieEnCours) {
+    if (!partieEnCours || this.modelePendu.getMotATrouve().equals(this.modelePendu.getMotCrypte())) {
         this.vuePendu.lancePartie();
         this.vuePendu.majAffichage();
     } else {

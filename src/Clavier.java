@@ -29,7 +29,7 @@ public class Clavier extends TilePane{
         this.clavier = new ArrayList<Button>();
         for (char c : touches.toCharArray()) {
             Button btn = new Button(String.valueOf(c));
-            btn.setPrefHeight(40); // permetde pas fait bugger les boutons
+            btn.setPrefHeight(40); // permetde pas fait bugger les boutons sinon rip
             btn.setPrefWidth(40);
             TilePane.setMargin(btn, new Insets(5)); // permet de mettre de la l espace
 
