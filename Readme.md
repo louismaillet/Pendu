@@ -1,4 +1,4 @@
-# Bonjour et bienvenue dans le projet du jeu du Pendu !
+# Bonjour et bienvenue dans le projet du jeu du Pendu réalisé par Maillet Louis !
 
 pour lancer le jeu, il vous suffit de cloner le dépôt
 
